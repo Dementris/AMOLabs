@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab X: Task Name</title>
+  <!-- MaxCDN Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Lab 2: "Computational complexity of sorting algorithms".</a>
+</nav>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Input</h2>
+
+      <form th:action="lab2" th:method="post" th:object="${alghoritm}">
+        <div class="form-group">
+          <label for="string">List of Numbers</label>
+          <input type="text" class="form-control" id="string"  placeholder="Enter comma separated numbers" th:field="*{firstData}" >
+        </div>
+        <button type="submit" class="btn btn-primary" >Submit</button>
+      </form>
+
+      <button type="button" class="btn btn-secondary" id="save-file-btn">Save to File</button>
+      <button type="button" class="btn btn-secondary" id="open-file-btn">Open File</button>
+    </div>
+    <div class="col-md-6">
+      <h2>Output</h2>
+      <div id="output-window">
+        <h3 th:text="${sorted}"></h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MaxCDN Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
