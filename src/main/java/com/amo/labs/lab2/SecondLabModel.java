@@ -1,11 +1,16 @@
 package com.amo.labs.lab2;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class SecondLabModel implements LabService{
+
+    public int time = 0;
 
     @Override
     public void binarySort(Algorithms algorithms) {
@@ -13,6 +18,7 @@ public class SecondLabModel implements LabService{
         algorithms.setSortedArray(algorithms.getFirstArray().clone());
         int a[] = algorithms.getSortedArray();
         int n = a.length;
+        time = 4;
         for (i = 1; i < n; ++i) {
             j = i - 1;
             selected = a[i];
@@ -24,22 +30,28 @@ public class SecondLabModel implements LabService{
             while (j >= loc) {
                 a[j + 1] = a[j];
                 j--;
+                time++;
             }
             a[j + 1] = selected;
+            time++;
         }
+        algorithms.setTime(time);
+        time = 0;
     }
 
     @Override
     public int binarySearch(int[] a, int item, int low, int high) {
         while (low <= high) {
             int mid = low + (high - low) / 2;
-            if (item == a[mid])
-                return mid + 1;
+            if (item == a[mid]){
+                time++;
+                return mid + 1;}
             else if (item > a[mid])
                 low = mid + 1;
             else
                 high = mid - 1;
         }
+        time++;
         return low;
 
     }

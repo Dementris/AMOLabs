@@ -55,8 +55,12 @@ public class Algorithms {
         this.sortedArray = sortedArray;
     }
 
-    public Save save(){
-        return new Save(ID,firstData,time,firstArray,sortedArray);
+    public String getFirstArrayStr() {
+        return Arrays.toString(firstArray);
+    }
+
+    public String getSortedArrayStr() {
+        return Arrays.toString(sortedArray);
     }
 
     @Override

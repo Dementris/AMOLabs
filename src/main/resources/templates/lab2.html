@@ -2,9 +2,10 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Lab X: Task Name</title>
+  <title>Lab 2</title>
   <!-- MaxCDN Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -14,30 +15,42 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-6">
+      <p class="text-danger" th:text="${errorMessage}"></p>
       <h2>Input</h2>
-
       <form th:action="lab2" th:method="post" th:object="${alghoritm}">
         <div class="form-group">
           <label for="string">List of Numbers</label>
           <input type="text" class="form-control" id="string"  placeholder="Enter comma separated numbers" th:field="*{firstData}" >
         </div>
         <button type="submit" class="btn btn-primary" >Submit</button>
+        <button type="button" class="btn btn-secondary" id="save-file-btn">Save to File</button>
+        <button type="button" class="btn btn-secondary" id="open-file-btn">Open File</button>
       </form>
+    </div>
 
-      <button type="button" class="btn btn-secondary" id="save-file-btn">Save to File</button>
-      <button type="button" class="btn btn-secondary" id="open-file-btn">Open File</button>
-    </div>
-    <div class="col-md-6">
+    <div class="container">
       <h2>Output</h2>
-      <div id="output-window">
-        <h3 th:text="${sorted}"></h3>
-      </div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Input</th>
+          <th>Output</th>
+          <th>Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="alghoritms : ${algModelAttribute.getAlgorithmsList()}">
+          <td th:text="${alghoritms.getID()}"></td>
+          <td th:text="${alghoritms.getFirstArrayStr()}"></td>
+          <td th:text="${alghoritms.getSortedArrayStr()}"></td>
+          <td th:text="${alghoritms.getTime()}"></td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
-</div>
 
 <!-- MaxCDN Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>
