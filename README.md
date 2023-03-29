@@ -9,9 +9,6 @@ algorithms and computational methods and allows users to visualize and analyzing
 To run the code in this repository, you will need:
 
 - Java 11 or later
-- Maven
-- Thymeleaf 3.x
-- Bootstrap 5.x
 
 ## Installation
 
