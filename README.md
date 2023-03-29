@@ -34,3 +34,5 @@ The `pom.xml` file contains the project dependencies and configuration.
 If you find a bug or want to suggest an improvement, please open an issue or submit a pull request.
 
 ## License
+
+This project is licensed under the [MIT License](LICENSE), which allows for free use, modification, and distribution of the code, with no warranty or liability.
