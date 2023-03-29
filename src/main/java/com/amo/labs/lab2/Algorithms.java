@@ -11,6 +11,8 @@ public class Algorithms {
 
     private int[] sortedArray;
 
+    private int lenght;
+
     public Algorithms(){
 
     }
@@ -61,6 +63,14 @@ public class Algorithms {
 
     public String getSortedArrayStr() {
         return Arrays.toString(sortedArray);
+    }
+
+    public int getLenght() {
+        return lenght;
+    }
+
+    public void setLenght(int lenght) {
+        this.lenght = lenght;
     }
 
     @Override

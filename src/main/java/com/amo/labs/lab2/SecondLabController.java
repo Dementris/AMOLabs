@@ -13,7 +13,7 @@ import java.util.Collections;
 
 @Controller
 public class SecondLabController {
-    private AlgorithmData algorithmData = new AlgorithmData();
+    private final AlgorithmData algorithmData = new AlgorithmData();
     @Autowired
     SecondLabModel secondLabModel;
 

@@ -18,7 +18,6 @@ public class SecondLabModel implements LabService{
         algorithms.setSortedArray(algorithms.getFirstArray().clone());
         int a[] = algorithms.getSortedArray();
         int n = a.length;
-        time = 4;
         for (i = 1; i < n; ++i) {
             j = i - 1;
             selected = a[i];
@@ -68,6 +67,7 @@ public class SecondLabModel implements LabService{
         }
         System.out.println(Arrays.toString(arrays));
         algorithms.setFirstArray(arrays);
+        algorithms.setLenght(arrays.length);
     }
     @Override
     public int convert(String str)

@@ -5,7 +5,38 @@
   <title>Lab 2</title>
   <!-- MaxCDN Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Include Highcharts -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <!-- Include jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- CDN Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <style>
+    /* Style for the overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      display: none;
+    }
+    /* Style for the popup window */
+    .popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      display: none;
+    }
+  </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,6 +57,23 @@
         <button type="button" class="btn btn-secondary" id="save-file-btn">Save to File</button>
         <button type="button" class="btn btn-secondary" id="open-file-btn">Open File</button>
       </form>
+      <div>
+        <h3></h3>
+        <!-- Define a button to open the popup window -->
+        <button class="btn btn-primary open-popup">Create Plot</button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Define the overlay and popup window -->
+    <div class="overlay"></div>
+    <div class="popup">
+      <h2>Plot</h2>
+      <figure class="highcharts-figure">
+        <div id="container" style="width:800px; height:400px;" ></div>
+      </figure>
+      <button class="btn btn-primary close-popup">Close</button>
     </div>
 
     <div class="container">
@@ -37,6 +85,7 @@
           <th>Input</th>
           <th>Output</th>
           <th>Time</th>
+          <th>Lenght</th>
         </tr>
         </thead>
         <tbody>
@@ -45,12 +94,84 @@
           <td th:text="${alghoritms.getFirstArrayStr()}"></td>
           <td th:text="${alghoritms.getSortedArrayStr()}"></td>
           <td th:text="${alghoritms.getTime()}"></td>
+          <td th:text="${alghoritms.getLenght()}"></td>
         </tr>
         </tbody>
       </table>
     </div>
 
+    <!-- Define the JavaScript code to open and close the popup window -->
+    <script>
+      $(document).ready(function() {
+        // Open the popup window when the button is clicked
+        $(".open-popup").click(function() {
+          $(".overlay").show();
+          $(".popup").show();
+        });
+        // Close the popup window when the close button is clicked
+        $(".close-popup").click(function() {
+          $(".overlay").hide();
+          $(".popup").hide();
+        });
+      });
+    </script>
+
+    <script>
+      Highcharts.chart('container', {
+        chart: {
+          type: 'spline'
+        },
+        title: {
+          text: 'Snow depth at Vikjafjellet, Norway'
+        },
+        subtitle: {
+          text: 'Irregular time data in Highcharts JS'
+        },
+        xAxis: {
+          title: {
+            text: 'N'
+          },
+          min: 0
+        },
+        yAxis: {
+          title: {
+            text: 'Time'
+          },
+          min: 0
+        },
+        tooltip: {
+          headerFormat: '<b>{series.name}</b><br>',
+          pointFormat: '{point.x:%e. %b}: {point.y:.2f} m'
+        },
+
+        plotOptions: {
+          series: {
+            marker: {
+              enabled: true,
+              radius: 2.5
+            }
+          }
+        },
+
+        colors: ['#6CF', '#39F', '#06C', '#036', '#000'],
+
+        // Define the data points.
+        series: [
+          {
+            name: 'Theoretic',
+            data: [
+            ]
+          }, {
+            name: 'Practice',
+            data: [[0,0],[5,5],[16,16]
+            ]
+          }
+        ]
+      });
+    </script>
+
 <!-- MaxCDN Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
