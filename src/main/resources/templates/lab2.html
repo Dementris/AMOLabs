@@ -116,13 +116,18 @@
       });
     </script>
 
-    <script>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      var array = /*[[${algModelAttribute.getLengthTimeFeauter().values()}]]*/ "";
+      array.push([0,0])
+      array.sort((a, b) => a[0] - b[0]);
+      console.log(array)
       Highcharts.chart('container', {
         chart: {
           type: 'spline'
         },
         title: {
-          text: 'Snow depth at Vikjafjellet, Norway'
+          text: 'Plot of the Time to Number of Elements'
         },
         subtitle: {
           text: 'Irregular time data in Highcharts JS'
@@ -141,7 +146,7 @@
         },
         tooltip: {
           headerFormat: '<b>{series.name}</b><br>',
-          pointFormat: '{point.x:%e. %b}: {point.y:.2f} m'
+          pointFormat: '{point.x}: {point.y} '
         },
 
         plotOptions: {
@@ -158,15 +163,45 @@
         // Define the data points.
         series: [
           {
-            name: 'Theoretic',
-            data: [
-            ]
-          }, {
             name: 'Practice',
+            data: array
+          }, {
+            name: 'Theoretic',
             data: [[0,0],[5,5],[16,16]
             ]
           }
         ]
+      });
+      /*]]>*/
+
+      // Save to File button functionality
+      document.getElementById('save-file-btn').addEventListener('click', function() {
+        const data = document.getElementById('string').value;
+        const filename = 'labx.txt';
+        const blob = new Blob([data], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
+
+      // Open File button functionality
+      document.getElementById('open-file-btn').addEventListener('click', function() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'text/plain';
+        input.onchange = function() {
+          const file = input.files[0];
+          const reader = new FileReader();
+          reader.onload = function() {
+            document.getElementById('string').value = reader.result;
+          };
+          reader.readAsText(file);
+        };
+        input.click();
       });
     </script>
 

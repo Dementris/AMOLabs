@@ -1,9 +1,6 @@
 package com.amo.labs.lab2;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AlgorithmData {
     public int COUNT;
@@ -11,19 +8,27 @@ public class AlgorithmData {
     AlgorithmData algorithmData;
     List<Algorithms> algorithmsList = new ArrayList<>();
 
-    Map<Integer,Integer> lenghtTimeFeature = new HashMap<>();
+    Map<String,int[]> lengthTimeFeauter = new HashMap<>();
 
     public List<Algorithms> getAlgorithmsList() {
         return algorithmsList;
     }
 
+    public Map<String, int[]> getLengthTimeFeauter() {
+        return lengthTimeFeauter;
+    }
+
+    public void addPlotParams(Algorithms algorithms){
+        int[] lenghtTimeInt = new int[2];
+        lenghtTimeInt[0] = algorithms.getLenght();
+        lenghtTimeInt[1] = algorithms.getTime();
+        lengthTimeFeauter.put("ID"+algorithms.getID(),lenghtTimeInt);
+    }
+
     public void save(Algorithms algorithms){
         algorithms.setID(COUNT);
         algorithmsList.add(algorithms);
-        lenghtTimeFeature.put(algorithms.getLenght(),algorithms.getTime());
         COUNT++;
     }
-
-
 
 }

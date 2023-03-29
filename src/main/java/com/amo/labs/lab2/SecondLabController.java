@@ -37,6 +37,11 @@ public class SecondLabController {
         }
         secondLabModel.binarySort(algorithms);
         algorithmData.save(algorithms);
+        algorithmData.addPlotParams(algorithms);
+        System.out.println(algorithmData.getLengthTimeFeauter());
+        for (int[] lists: algorithmData.getLengthTimeFeauter().values()) {
+            System.out.println(Arrays.toString(lists));
+        }
         return "lab2";
     }
 

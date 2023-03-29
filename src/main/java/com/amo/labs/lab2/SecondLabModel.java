@@ -10,10 +10,11 @@ import java.util.List;
 @Service
 public class SecondLabModel implements LabService{
 
-    public int time = 0;
+    private long time = 0;
 
     @Override
     public void binarySort(Algorithms algorithms) {
+        long startime = System.nanoTime();
         int i, loc, j, selected;
         algorithms.setSortedArray(algorithms.getFirstArray().clone());
         int a[] = algorithms.getSortedArray();
@@ -29,13 +30,12 @@ public class SecondLabModel implements LabService{
             while (j >= loc) {
                 a[j + 1] = a[j];
                 j--;
-                time++;
             }
             a[j + 1] = selected;
-            time++;
         }
-        algorithms.setTime(time);
-        time = 0;
+        long stoptime = System.nanoTime();
+        time = stoptime - startime;
+        algorithms.setTime((int) time);
     }
 
     @Override
@@ -50,7 +50,6 @@ public class SecondLabModel implements LabService{
             else
                 high = mid - 1;
         }
-        time++;
         return low;
 
     }
@@ -65,7 +64,6 @@ public class SecondLabModel implements LabService{
             val = convert(strings[i]);
             arrays[i]=val;
         }
-        System.out.println(Arrays.toString(arrays));
         algorithms.setFirstArray(arrays);
         algorithms.setLenght(arrays.length);
     }
