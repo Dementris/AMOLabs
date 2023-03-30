@@ -10,6 +10,12 @@ public class AlgorithmData {
 
     Map<String,int[]> lengthTimeFeauter = new HashMap<>();
 
+    private int[][] logarr = new int[][]{{2, 2}, {4, 8}, {8, 24}, {16, 64}, {32, 160}, {64, 384}, {128, 896}, {256, 2048}, {512, 4608}, {1024, 10240}};;
+
+    public int[][] getLogarr() {
+        return logarr;
+    }
+
     public List<Algorithms> getAlgorithmsList() {
         return algorithmsList;
     }
@@ -30,5 +36,6 @@ public class AlgorithmData {
         algorithmsList.add(algorithms);
         COUNT++;
     }
+
 
 }

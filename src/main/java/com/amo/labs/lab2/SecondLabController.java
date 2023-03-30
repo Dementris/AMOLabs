@@ -28,11 +28,16 @@ public class SecondLabController {
         return algorithmData;
     }
 
+
     @PostMapping("/lab2")
     public String sortRequest(@ModelAttribute("alghoritm") Algorithms algorithms,ModelMap map){
         secondLabModel.stringArrtoInt(algorithms);
         if (algorithms.getFirstArray().length == 1 || algorithms.getFirstArray()[0] == 0){
             map.put("errorMessage","PLEASE ENTER COMMA SEPARATED NUMBERS");
+            return "lab2";
+        }
+        else if (algorithms.getFirstArray().length>=1024){
+            map.put("errorMessage","Enter an array with a length less than 1024");
             return "lab2";
         }
         secondLabModel.binarySort(algorithms);

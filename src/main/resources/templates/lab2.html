@@ -119,9 +119,11 @@
     <script th:inline="javascript">
       /*<![CDATA[*/
       var array = /*[[${algModelAttribute.getLengthTimeFeauter().values()}]]*/ "";
+      var logarray = /*[[${algModelAttribute.getLogarr()}]]*/ "";
       array.push([0,0])
       array.sort((a, b) => a[0] - b[0]);
       console.log(array)
+      console.log(logarray)
       Highcharts.chart('container', {
         chart: {
           type: 'spline'
@@ -167,8 +169,7 @@
             data: array
           }, {
             name: 'Theoretic',
-            data: [[0,0],[5,5],[16,16]
-            ]
+            data: logarray
           }
         ]
       });
