@@ -14,7 +14,6 @@ public class SecondLabModel implements LabService{
 
     @Override
     public void binarySort(Algorithms algorithms) {
-        long startime = System.nanoTime();
         int i, loc, j, selected;
         algorithms.setSortedArray(algorithms.getFirstArray().clone());
         int a[] = algorithms.getSortedArray();
@@ -22,10 +21,8 @@ public class SecondLabModel implements LabService{
         for (i = 1; i < n; ++i) {
             j = i - 1;
             selected = a[i];
-
             // find location where selected should be inserted
             loc = binarySearch(a, selected, 0, j);
-
             // Move all elements after location to create space
             while (j >= loc) {
                 a[j + 1] = a[j];
@@ -33,8 +30,6 @@ public class SecondLabModel implements LabService{
             }
             a[j + 1] = selected;
         }
-        long stoptime = System.nanoTime();
-        time = stoptime - startime;
         algorithms.setTime((int) time);
     }
 
@@ -45,13 +40,16 @@ public class SecondLabModel implements LabService{
             if (item == a[mid]){
                 time++;
                 return mid + 1;}
-            else if (item > a[mid])
+            else if (item > a[mid]){
                 low = mid + 1;
-            else
+
+            }
+            else{
                 high = mid - 1;
+            }
+            time++;
         }
         return low;
-
     }
 
     @Override
@@ -79,4 +77,5 @@ public class SecondLabModel implements LabService{
         }
         return val;
     }
+
 }
