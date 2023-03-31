@@ -19,6 +19,7 @@ To run the code in this repository, you will need:
 ## Usage
 
 To run the project, use the following command: `mvn spring-boot:run`. Once the server is up and running, you can access the application in your web browser at `http://localhost:8080/`.
+Also you can access the application in your web browser at [`https://acm-lab.herokuapp.com/`](https://acm-lab.herokuapp.com/)
 
 The application allows users to select an algorithm or computational method from a list and input any necessary parameters. The user can then run the algorithm and visualize the results on the webpage.
 
