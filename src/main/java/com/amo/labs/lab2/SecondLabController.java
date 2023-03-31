@@ -11,24 +11,48 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * The type Second lab controller.
+ */
 @Controller
 public class SecondLabController {
     private final AlgorithmData algorithmData = new AlgorithmData();
+    /**
+     * The Second lab model.
+     */
     @Autowired
     SecondLabModel secondLabModel;
 
+    /**
+     * Create new Algorithm in /lab2.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/lab2")
     public String newAlghoritm(Model model){
         model.addAttribute("alghoritm", new Algorithms());
         return "lab2";
     }
 
+    /**
+     * Alg model attribute algorithm data.
+     *
+     * @return the algorithm data
+     */
     @ModelAttribute("algModelAttribute")
     AlgorithmData algModelAttribute(){
         return algorithmData;
     }
 
 
+    /**
+     * Post request for add first data to algorithm.
+     *
+     * @param algorithms the algorithms
+     * @param map        the map
+     * @return the string
+     */
     @PostMapping("/lab2")
     public String sortRequest(@ModelAttribute("alghoritm") Algorithms algorithms,ModelMap map){
         secondLabModel.stringArrtoInt(algorithms);
@@ -43,10 +67,6 @@ public class SecondLabController {
         secondLabModel.binarySort(algorithms);
         algorithmData.save(algorithms);
         algorithmData.addPlotParams(algorithms);
-        System.out.println(algorithmData.getLengthTimeFeauter());
-        for (int[] lists: algorithmData.getLengthTimeFeauter().values()) {
-            System.out.println(Arrays.toString(lists));
-        }
         return "lab2";
     }
 
