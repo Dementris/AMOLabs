@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab X: Task Name</title>
+
+  <!-- MaxCDN Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Lab 3: Aitkens interpolation</a>
+</nav>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Input</h2>
+      <form>
+        <div class="form-group">
+          <label for="x">Variable x</label>
+          <input type="text" class="form-control" id="x" placeholder="Enter variable x">
+        </div>
+        <div class="form-group">
+          <label for="range">Range List</label>
+          <input type="text" class="form-control" id="range" placeholder="Enter range list">
+        </div>
+        <div class="form-group">
+          <label for="points">Number of Points</label>
+          <input type="number" class="form-control" id="points" placeholder="Enter number of points">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <h1></h1>
+      <button type="button" class="btn btn-secondary" id="save-file-btn">Save to File</button>
+      <button type="button" class="btn btn-secondary" id="open-file-btn">Open File</button>
+    </div>
+  </div>
+</div>
+<h1></h1>
+<div class="container">
+  <h2>Output</h2>
+  <div id="output-window"></div>
+</div>
+
+<!-- MaxCDN Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  // Save to File button functionality
+  document.getElementById('save-file-btn').addEventListener('click', function() {
+    const data = `Variable x: ${document.getElementById('x').value}\nRange List: ${document.getElementById('range').value}\nNumber of Points: ${document.getElementById('points').value}`;
+    const filename = 'labx.txt';
+    const blob = new Blob([data], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+
+  // Open File button functionality
+  document.getElementById('open-file-btn').addEventListener('click', function() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'text/plain';
+    input.onchange = function() {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function() {
+        const lines = reader.result.split('\n');
+        document.getElementById('x').value = lines[0].replace('Variable x: ', '');
+        document.getElementById('range').value = lines[1].replace('Range List: ', '');
+        document.getElementById('points').value = lines[2].replace('Number of Points: ', '');
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  });
+</script>
+</body>
+</html>
