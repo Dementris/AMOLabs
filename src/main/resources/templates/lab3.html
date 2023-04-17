@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lab X: Task Name</title>
+  <title>Lab 3: Aitken Interpolation</title>
 
   <!-- MaxCDN Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -21,14 +22,6 @@
           <label for="x">Variable x</label>
           <input type="text" class="form-control" id="x" placeholder="Enter variable x">
         </div>
-        <div class="form-group">
-          <label for="range">Range List</label>
-          <input type="text" class="form-control" id="range" placeholder="Enter range list">
-        </div>
-        <div class="form-group">
-          <label for="points">Number of Points</label>
-          <input type="number" class="form-control" id="points" placeholder="Enter number of points">
-        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
       <h1></h1>
@@ -40,7 +33,22 @@
 <h1></h1>
 <div class="container">
   <h2>Output</h2>
-  <div id="output-window"></div>
+  <div id="output-window">
+    <div id="plot"></div>
+    <script th:inline="javascript">
+      var x1 = [[${x1}]];
+      var y1 = [[${y1}]];
+      var trace1 = { x: x1, y: y1, type: 'scatter', mode: 'lines+points', marker: {color: 'red'},
+        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.2f}<extra></extra>' };
+      var x2 = [[${x2}]];
+      var y2 = [[${y2}]];
+      var trace2 = { x: x2, y: y2, type: 'scatter', mode: 'lines+points', marker: {color: 'blue'},
+        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.2f}<extra></extra>'};
+      var data = [trace1, trace2];
+      var layout = { title: 'Aitken interpolation', xaxis: { title: 'x', tickformat: '.2f' }, yaxis: { title: 'y', tickformat: '.2f' } };
+      Plotly.newPlot('plot', data, layout);
+    </script>
+  </div>
 </div>
 
 <!-- MaxCDN Bootstrap JS -->
@@ -48,7 +56,7 @@
 <script>
   // Save to File button functionality
   document.getElementById('save-file-btn').addEventListener('click', function() {
-    const data = `Variable x: ${document.getElementById('x').value}\nRange List: ${document.getElementById('range').value}\nNumber of Points: ${document.getElementById('points').value}`;
+    const data = `Variable x: ${document.getElementById('x').value}`;
     const filename = 'labx.txt';
     const blob = new Blob([data], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
@@ -71,8 +79,6 @@
       reader.onload = function() {
         const lines = reader.result.split('\n');
         document.getElementById('x').value = lines[0].replace('Variable x: ', '');
-        document.getElementById('range').value = lines[1].replace('Range List: ', '');
-        document.getElementById('points').value = lines[2].replace('Number of Points: ', '');
       };
       reader.readAsText(file);
     };
