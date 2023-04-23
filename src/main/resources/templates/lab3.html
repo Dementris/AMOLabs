@@ -35,18 +35,42 @@
   <h2>Output</h2>
   <div id="output-window">
     <div id="plot"></div>
+    <div id="plot2"></div>
     <script th:inline="javascript">
+
+      function getRandomColor() {
+        let r = Math.floor(Math.random() * 256);
+        let g = Math.floor(Math.random() * 256);
+        let b = Math.floor(Math.random() * 256);
+        return `rgb(${r},${g},${b})`;
+      }
+
       var x1 = [[${x1}]];
       var y1 = [[${y1}]];
-      var trace1 = { x: x1, y: y1, type: 'scatter', mode: 'lines+points', marker: {color: 'red'},
-        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.2f}<extra></extra>' };
+      var trace1 = { x: x1, y: y1, type: 'scatter',name: 'function', mode: 'lines+points', marker: {color: 'red'},
+        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.4f}<extra></extra>' };
       var x2 = [[${x2}]];
       var y2 = [[${y2}]];
-      var trace2 = { x: x2, y: y2, type: 'scatter', mode: 'lines+points', marker: {color: 'blue'},
-        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.2f}<extra></extra>'};
+      var trace2 = { x: x2, y: y2, type: 'scatter',name: 'interpolated', mode: 'lines+points', marker: {color: 'blue'},
+        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.4f}<extra></extra>'};
       var data = [trace1, trace2];
       var layout = { title: 'Aitken interpolation', xaxis: { title: 'x', tickformat: '.2f' }, yaxis: { title: 'y', tickformat: '.2f' } };
       Plotly.newPlot('plot', data, layout);
+    </script>
+    <script th:inline="javascript">
+      var x1 = [[${xAcc}]];
+      var y1 = [[${error}]];
+      console.log(x1)
+      console.log(y1)
+      var data = [];
+      for (var i = 0; i<y1.length; i++){
+        var trace1 = { x: x1, y: y1[i], type: 'scatter',name: 'n = '+(i+1), mode: 'lines+points', marker: {name: 'n = '+(i+1),
+            color: getRandomColor()},
+          hovertemplate: 'x: %{x:.2f}<br>y: %{y:.2f}<extra></extra>' };
+        data.push(trace1)
+      }
+      var layout = { title: 'Accuracy plot', xaxis: { title: 'x', tickformat: '.2f' }, yaxis: { title: 'y', tickformat: '.2f' } };
+      Plotly.newPlot('plot2', data, layout);
     </script>
   </div>
 </div>
