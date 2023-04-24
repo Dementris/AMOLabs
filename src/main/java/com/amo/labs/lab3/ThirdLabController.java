@@ -3,9 +3,7 @@ package com.amo.labs.lab3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -39,12 +37,15 @@ public class ThirdLabController {
     @ModelAttribute("errorsData")
     ErrorsDAO errorsDAO(){return errorsDAO;}
 
+
     @PostMapping("/lab3")
-    public String getPostRequest(@ModelAttribute("interpolation") LabIntrepolation lab){
+    public String getPostRequest(LabIntrepolation lab){
         errorsDAO.getErrors().clear();
-        intrepolation.setXi(thirdLabModel.convert(lab.getFirstData()));
+        double xi = thirdLabModel.convert(lab.getFirstData());
+        intrepolation.setXi(xi);
         intrepolation.setDegree(thirdLabModel.convert(lab.getDegreeData()));
         thirdLabModel.tableOfContent(intrepolation,errorsDAO);
+        errorsDAO.setXi(xi);
         return "redirect:/lab3";
     }
 
