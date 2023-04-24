@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Lab 3: Aitken Interpolation</title>
@@ -17,10 +17,15 @@
   <div class="row">
     <div class="col-md-6">
       <h2>Input</h2>
-      <form>
+      <form th:action="lab3" th:method="post" th:object="${interpolation}" >
         <div class="form-group">
           <label for="x">Variable x</label>
-          <input type="text" class="form-control" id="x" placeholder="Enter variable x">
+          <input type="number" class="form-control" id="x" step="0.01" placeholder="Enter variable x" th:field="*{firstData}">
+        </div>
+        <div class="form-group">Degree n:
+          <label for="n"></label>
+          <input type="number" class="form-control" id="n" placeholder="Enter a number between 0 and 10 for n:"
+                 name="n" min="0" max="10" th:field="*{degreeData}">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -73,6 +78,25 @@
       Plotly.newPlot('plot2', data, layout);
     </script>
   </div>
+  <h3><p>X = <strong th:text="${interpolation.getXi()}"></strong></p></h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>n</th>
+      <th>deltan</th>
+      <th>deltaexactn</th>
+      <th>k</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="error : ${errorsData.getErrors()}">
+      <td th:text="${error.getN()}"></td>
+      <td th:text="${error.getDeltan()}"></td>
+      <td th:text="${error.getDeltaEcactn()}"></td>
+      <td th:text="${error.getK()}"></td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- MaxCDN Bootstrap JS -->

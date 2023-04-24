@@ -73,11 +73,20 @@ public class ThirdLabModel {
                 }
             }
         }
-        System.out.println(Arrays.toString(logErr[0]));
         return logErr;
     }
 
-    public void tableOfContent(){
+    public void tableOfContent(LabIntrepolation lab, ErrorsDAO errorsDAO){
+        int degree = (int) lab.getDegree();
+        double xi = lab.getXi();
+        double deltan, deltaExactN, k;
+        for (int n = 1; n < degree+1; n++) {
+            deltan = lab.interpolate(lab.getxValues(),lab.getyValues(),xi,n)-lab.interpolate(lab.getxValues(),lab.getyValues(),xi,n+1);
+            deltaExactN = lab.interpolate(lab.getxValues(),lab.getyValues(),xi,n) - (Math.pow(4,xi)-8*xi);
+            k = 1 - (deltaExactN/deltan);
+            InterPoltionError error = new InterPoltionError(deltan,deltaExactN,k,n);
+            errorsDAO.save(error);
+        }
     }
 
     public double[] xAccuracy(double[] x ,double[] xj ,int j){
@@ -93,7 +102,7 @@ public class ThirdLabModel {
         double[] interpolatedX = setXpointsArr();
         double[] resultInterpolation = new double[interpolatedX.length];
         for (int i = 0; i < interpolatedX.length; i++) {
-            resultInterpolation[i] = intrepolation.interpolate(intrepolation.getxValues(),intrepolation.getyValues(),interpolatedX[i],10);
+            resultInterpolation[i] = intrepolation.interpolate(intrepolation.getxValues(),intrepolation.getyValues(),interpolatedX[i],12);
         }
         return resultInterpolation;
     }
