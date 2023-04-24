@@ -42,7 +42,6 @@ public class SecondLabModel implements LabService{
                 return mid + 1;}
             else if (item > a[mid]){
                 low = mid + 1;
-
             }
             else{
                 high = mid - 1;

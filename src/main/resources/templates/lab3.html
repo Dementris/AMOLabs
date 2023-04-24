@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 3: Aitken Interpolation</title>
+
+  <!-- MaxCDN Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Lab 3: Aitkens interpolation</a>
+</nav>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Input</h2>
+      <form th:action="lab3" th:method="post" th:object="${interpolation}" >
+        <div class="form-group">
+          <label for="x">Variable x</label>
+          <input type="number" class="form-control" id="x" step="0.01" placeholder="Enter variable x" th:field="*{firstData}">
+        </div>
+        <div class="form-group">Degree n:
+          <label for="n"></label>
+          <input type="number" class="form-control" id="n" placeholder="Enter a number between 0 and 10 for n:"
+                 name="n" min="0" max="10" th:field="*{degreeData}">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <h1></h1>
+      <button type="button" class="btn btn-secondary" id="save-file-btn">Save to File</button>
+      <button type="button" class="btn btn-secondary" id="open-file-btn">Open File</button>
+    </div>
+  </div>
+</div>
+<h1></h1>
+<div class="container">
+  <h2>Output</h2>
+  <div id="output-window">
+    <div id="plot"></div>
+    <div id="plot2"></div>
+    <script th:inline="javascript">
+
+      function getRandomColor() {
+        let r = Math.floor(Math.random() * 256);
+        let g = Math.floor(Math.random() * 256);
+        let b = Math.floor(Math.random() * 256);
+        return `rgb(${r},${g},${b})`;
+      }
+
+      var x1 = [[${x1}]];
+      var y1 = [[${y1}]];
+      var trace1 = { x: x1, y: y1, type: 'scatter',name: 'function', mode: 'lines+points', marker: {color: 'red'},
+        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.4f}<extra></extra>' };
+      var x2 = [[${x2}]];
+      var y2 = [[${y2}]];
+      var trace2 = { x: x2, y: y2, type: 'scatter',name: 'interpolated', mode: 'lines+points', marker: {color: 'blue'},
+        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.4f}<extra></extra>'};
+      var data = [trace1, trace2];
+      var layout = { title: 'Aitken interpolation', xaxis: { title: 'x', tickformat: '.2f' }, yaxis: { title: 'y', tickformat: '.2f' } };
+      Plotly.newPlot('plot', data, layout);
+    </script>
+    <script th:inline="javascript">
+      var x1 = [[${xAcc}]];
+      var y1 = [[${error}]];
+      console.log(x1)
+      console.log(y1)
+      var data = [];
+      for (var i = 0; i<y1.length; i++){
+        var trace1 = { x: x1, y: y1[i], type: 'scatter',name: 'n = '+(i+1), mode: 'lines+points', marker: {name: 'n = '+(i+1),
+            color: getRandomColor()},
+          hovertemplate: 'x: %{x:.2f}<br>y: %{y:.2f}<extra></extra>' };
+        data.push(trace1)
+      }
+      var layout = { title: 'Accuracy plot', xaxis: { title: 'x', tickformat: '.2f' }, yaxis: { title: 'y', tickformat: '.2f' } };
+      Plotly.newPlot('plot2', data, layout);
+    </script>
+  </div>
+  <h3><p>X = <strong th:text="${errorsData.getXi()}"></strong></p></h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>n</th>
+      <th>deltan</th>
+      <th>deltaexactn</th>
+      <th>k</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="error : ${errorsData.getErrors()}">
+      <td th:text="${error.getN()}"></td>
+      <td th:text="${error.getDeltan()}"></td>
+      <td th:text="${error.getDeltaEcactn()}"></td>
+      <td th:text="${error.getK()}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MaxCDN Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  // Save to File button functionality
+  document.getElementById('save-file-btn').addEventListener('click', function() {
+    const data = `Variable x: ${document.getElementById('x').value}`;
+    const filename = 'labx.txt';
+    const blob = new Blob([data], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+
+  // Open File button functionality
+  document.getElementById('open-file-btn').addEventListener('click', function() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'text/plain';
+    input.onchange = function() {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function() {
+        const lines = reader.result.split('\n');
+        document.getElementById('x').value = lines[0].replace('Variable x: ', '');
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  });
+</script>
+</body>
+</html>
