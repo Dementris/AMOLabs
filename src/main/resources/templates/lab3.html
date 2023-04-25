@@ -70,10 +70,9 @@
       Plotly.newPlot('plot', data, layout);
     </script>
     <script th:inline="javascript">
-      var x1 = [[${xAcc}]];
+      var x1 = [[${x2}]];
       var y1 = [[${error}]];
       console.log(x1)
-      console.log(y1)
       var data = [];
       for (var i = 0; i<y1.length; i++){
         var trace1 = { x: x1, y: y1[i], type: 'scatter',name: 'n = '+(i+1), mode: 'lines+points', marker: {name: 'n = '+(i+1),
