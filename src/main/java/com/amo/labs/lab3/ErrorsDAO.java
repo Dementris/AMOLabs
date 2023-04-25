@@ -12,7 +12,7 @@ import java.util.List;
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ErrorsDAO {
     List<InterPoltionError> errors = new ArrayList<>();
-    double xi;
+    double xi = 0;
 
     public ErrorsDAO(){
 

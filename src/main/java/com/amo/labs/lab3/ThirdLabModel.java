@@ -60,7 +60,7 @@ public class ThirdLabModel {
     public double[][] error(LabIntrepolation lab,double[] xi, double[] yi, int degree, double[] xWithLine){
         setYvalues(lab);
         int l = xWithLine.length;
-        double[][] logErr = new double[degree-1][l];
+        double[][] logErr = new double[degree][l];
         for (int n = 1; n < degree ; n++) {
             for (int i = 0; i < l; i++) {
                 logErr[n-1][i] = -1*Math.log10(Math.abs(lab.interpolate(xi,yi,xWithLine[i],n)-lab.interpolate(xi,yi,xWithLine[i],n+1)));
@@ -99,10 +99,11 @@ public class ThirdLabModel {
 
     public double[] startLab(LabIntrepolation intrepolation){
         setYvalues(intrepolation);
+        int degree = (int) intrepolation.getDegree();
         double[] interpolatedX = setXpointsArr();
         double[] resultInterpolation = new double[interpolatedX.length];
         for (int i = 0; i < interpolatedX.length; i++) {
-            resultInterpolation[i] = intrepolation.interpolate(intrepolation.getxValues(),intrepolation.getyValues(),interpolatedX[i],12);
+            resultInterpolation[i] = intrepolation.interpolate(intrepolation.getxValues(),intrepolation.getyValues(),interpolatedX[i],degree);
         }
         return resultInterpolation;
     }

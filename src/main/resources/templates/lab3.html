@@ -60,11 +60,11 @@
       var x1 = [[${x1}]];
       var y1 = [[${y1}]];
       var trace1 = { x: x1, y: y1, type: 'scatter',name: 'function', mode: 'lines+points', marker: {color: 'red'},
-        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.4f}<extra></extra>' };
+        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.4f}<extra></extra>', line: {shape: 'spline', smothing: 1}};
       var x2 = [[${x2}]];
       var y2 = [[${y2}]];
       var trace2 = { x: x2, y: y2, type: 'scatter',name: 'interpolated', mode: 'lines+points', marker: {color: 'blue'},
-        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.4f}<extra></extra>'};
+        hovertemplate: 'x: %{x:.2f}<br>y: %{y:.4f}<extra></extra>', line: {shape: 'spline', smothing: 1}};
       var data = [trace1, trace2];
       var layout = { title: 'Aitken interpolation', xaxis: { title: 'x', tickformat: '.2f' }, yaxis: { title: 'y', tickformat: '.2f' } };
       Plotly.newPlot('plot', data, layout);
@@ -78,7 +78,7 @@
       for (var i = 0; i<y1.length; i++){
         var trace1 = { x: x1, y: y1[i], type: 'scatter',name: 'n = '+(i+1), mode: 'lines+points', marker: {name: 'n = '+(i+1),
             color: getRandomColor()},
-          hovertemplate: 'x: %{x:.2f}<br>y: %{y:.2f}<extra></extra>' };
+          hovertemplate: 'x: %{x:.2f}<br>y: %{y:.2f}<extra></extra>',line: {shape: 'spline', smothing: 1}};
         data.push(trace1)
       }
       var layout = { title: 'Accuracy plot', xaxis: { title: 'x', tickformat: '.2f' }, yaxis: { title: 'y', tickformat: '.2f' } };

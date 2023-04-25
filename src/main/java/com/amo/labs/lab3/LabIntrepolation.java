@@ -10,7 +10,7 @@ public class LabIntrepolation {
     private String degreeData;
     private double xi;
 
-    private double degree;
+    private double degree = 10;
 
 
     public double interpolate(double[] x, double[] y, double xi, int degree) {

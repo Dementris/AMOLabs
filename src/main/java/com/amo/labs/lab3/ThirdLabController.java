@@ -24,7 +24,7 @@ public class ThirdLabController {
         double[] x2 = thirdLabModel.setXpointsArr();
         double[] y2 = thirdLabModel.startLab(intrepolation);
         double[][] error = thirdLabModel.error(intrepolation,intrepolation.getxValues(),
-                intrepolation.getyValues(),10,x2);
+                intrepolation.getyValues(), (int) intrepolation.getDegree(),x2);
         model.addAttribute("interpolation",intrepolation);
         model.addAttribute("x1", x1);
         model.addAttribute("y1", y1);
