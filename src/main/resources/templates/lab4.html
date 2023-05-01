@@ -21,21 +21,21 @@
         <div class="form-group">
           <label for="epsilon">Epsilon</label>
           <input type="number" class="form-control" id="epsilon"
-                 th:field="*{stringEpsilon}" step="0.00000001" placeholder="Enter Epsilon" min="0" >
+                 th:field="*{stringEpsilon}" step="0.00000001" placeholder="Enter Epsilon" min="0" required >
         </div>
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="range-from">From</label>
               <input type="number" class="form-control" id="range-from" step="0.01" placeholder="Enter  from" max="5"
-              min="-5" th:field="*{start}">
+              min="-5" th:field="*{start}" required>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="range-to">To</label>
               <input type="number" class="form-control" id="range-to" step="0.01" placeholder="Enter to" max="5" min="-5"
-                     th:field="*{stop}">
+                     th:field="*{stop}" required>
             </div>
           </div>
         </div>
