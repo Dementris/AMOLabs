@@ -4,6 +4,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * The type Equation.
+ */
 @Service
 public class Equation {
     private double result;
@@ -13,56 +16,125 @@ public class Equation {
 
     private double k;
 
+    /**
+     * Gets result.
+     *
+     * @return the result
+     */
     public double getResult() {
         return result;
     }
 
+    /**
+     * Sets result.
+     *
+     * @param result the result
+     */
     public void setResult(double result) {
         this.result = result;
     }
 
+    /**
+     * Gets epsilon.
+     *
+     * @return the epsilon
+     */
     public double getEpsilon() {
         return epsilon;
     }
 
+    /**
+     * Sets epsilon.
+     *
+     * @param epsilon the epsilon
+     */
     public void setEpsilon(double epsilon) {
         this.epsilon = epsilon;
     }
 
 
+    /**
+     * Gets firsta.
+     *
+     * @return the firsta
+     */
     public double getFirsta() {
         return firsta;
     }
 
+    /**
+     * Sets firsta.
+     *
+     * @param firsta the firsta
+     */
     public void setFirsta(double firsta) {
         this.firsta = firsta;
     }
 
+    /**
+     * Gets secondb.
+     *
+     * @return the secondb
+     */
     public double getSecondb() {
         return secondb;
     }
 
+    /**
+     * Sets secondb.
+     *
+     * @param secondb the secondb
+     */
     public void setSecondb(double secondb) {
         this.secondb = secondb;
     }
 
+    /**
+     * Gets k.
+     *
+     * @return the k
+     */
     public double getK() {
         return k;
     }
 
+    /**
+     * Sets k.
+     *
+     * @param k the k
+     */
     public void setK(double k) {
         this.k = k;
     }
 
+    /**
+     * Equate my function double.
+     *
+     * @param x the x
+     * @return the double
+     */
     public double equateMyFunction(double x) {
         return 5 * Math.sin(5 * x) - x;
     }
 
+    /**
+     * Derivation my function double.
+     *
+     * @param x the x
+     * @return the double
+     */
     public double derivationMyFunction(double x) {
         return  25*Math.cos(5*x) - 1;
     }
 
 
+    /**
+     * Method which find result of equation.
+     *
+     * @param epsilon the epsilon or tolerance
+     * @param firsta  the first bound of range
+     * @param secondb the last bound of range
+     */
     public void iterationMethod(double epsilon, double firsta, double secondb) {
         setFirsta(firsta);
         setSecondb(secondb);
@@ -82,6 +154,12 @@ public class Equation {
         setEpsilon(epsilon);
     }
 
+    /**
+     * Phi double.
+     *
+     * @param x the x
+     * @return the double
+     */
     public double phi(double x){
         return (x+5*Math.sin(5 * x)) / 6;
     }
