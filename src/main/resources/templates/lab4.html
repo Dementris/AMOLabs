@@ -15,12 +15,13 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-6">
+      <p class="text-danger" th:text="${errorMessage}"></p>
       <h2>Input</h2>
       <form th:action="lab4" th:method="post" th:object="${equationData}" >
         <div class="form-group">
           <label for="epsilon">Epsilon</label>
           <input type="number" class="form-control" id="epsilon"
-                 th:field="*{stringEpsilon}" step="0.01" placeholder="Enter Epsilon" >
+                 th:field="*{stringEpsilon}" step="0.00000001" placeholder="Enter Epsilon" min="0" >
         </div>
         <div class="row">
           <div class="col-md-6">
@@ -43,6 +44,31 @@
       <h1></h1>
       <button type="button" class="btn btn-secondary" id="save-file-btn">Save to File</button>
       <button type="button" class="btn btn-secondary" id="open-file-btn">Open File</button>
+      <div class="container">
+        <h2>Output</h2>
+        <div id="output-window">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Result</th>
+              <th>A</th>
+              <th>B</th>
+              <th>k</th>
+              <th>epsilon</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td th:text="${equation.getResult()}"></td>
+              <td th:text="${equation.getFirsta()}"></td>
+              <td th:text="${equation.getSecondb()}"></td>
+              <td th:text="${equation.getK()}"></td>
+              <td th:text="${equation.getEpsilon()}"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
       <h2>Function:</h2>
@@ -60,16 +86,15 @@
         var layout = { title: 'Function', xaxis: { title: 'x', tickformat: '.2f' }, yaxis: { title: 'y', tickformat: '.2f' } };
         Plotly.newPlot('plot', data, layout);
       </script>
+      <h5>Ranges where only one result is possible:</h5>
+      <div class="text" th:text="${intervals}"></div>
       <div class="container">
       </div>
     </div>
   </div>
 </div>
 <h1></h1>
-<div class="container">
-  <h2>Output</h2>
-  <div id="output-window"></div>
-</div>
+
 
 <!-- MaxCDN Bootstrap JS and other JS libraries you may need -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

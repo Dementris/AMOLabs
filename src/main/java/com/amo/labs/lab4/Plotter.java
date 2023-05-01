@@ -11,6 +11,8 @@ public class Plotter {
     private double[] x;
     private double[] y;
 
+    List<double[]> intervals = new ArrayList<>();
+
     public Plotter(double start, double stop, double step) {
         this.x = generateXvalues(start,stop,step);
         this.y = generateYvalues(this.x);
@@ -30,6 +32,14 @@ public class Plotter {
 
     public void setY(double[] y) {
         this.y = y;
+    }
+
+    public List<double[]> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(List<double[]> intervals) {
+        this.intervals = intervals;
     }
 
     private double[] generateXvalues(double start, double stop, double step){

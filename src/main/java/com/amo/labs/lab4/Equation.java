@@ -8,8 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Equation {
     private double result;
     private double epsilon;
-    private double firsta = -5;
-    private double secondb = -4;
+    private double firsta;
+    private double secondb;
 
     private double k;
 
@@ -62,15 +62,11 @@ public class Equation {
         return (0.2) * Math.asin(x / 5.0);
     }
 
-    public boolean isCorrectAandB() {
-        return secondb - firsta > 0;
-    }
 
     public void iterationMethod(double epsilon, double firsta, double secondb) {
         setFirsta(firsta);
         setSecondb(secondb);
         double x0 = secondb + (firsta - secondb) / 2;
-        System.out.println(x0);
         if (equateMyFunction(firsta) * equateMyFunction(secondb) < 0) {
             int k = 0;
             double x = x0;
