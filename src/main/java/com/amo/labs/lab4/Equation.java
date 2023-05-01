@@ -59,30 +59,31 @@ public class Equation {
     }
 
     public double derivationMyFunction(double x) {
-        return (0.2) * Math.asin(x / 5.0);
+        return  25*Math.cos(5*x) - 1;
     }
 
 
     public void iterationMethod(double epsilon, double firsta, double secondb) {
         setFirsta(firsta);
         setSecondb(secondb);
-        double x0 = secondb + (firsta - secondb) / 2;
-        if (equateMyFunction(firsta) * equateMyFunction(secondb) < 0) {
-            int k = 0;
-            double x = x0;
-            while (Math.abs(x-derivationMyFunction(x)) > epsilon){
-                x = derivationMyFunction(x);
-                k++;
-            }
-            setResult(x);
-            setK(k);
-            setEpsilon(epsilon);
-
-        } else System.out.println("Enter another range");
+        double x0 = (firsta + secondb)/2;
+        int k = 0;
+        double x = x0;
+        double y = x0;
+        do{
+            y = x - equateMyFunction(x)/derivationMyFunction(x);
+            k++;
+            if (Math.abs(y-x)<epsilon){break;}
+            else x=y;
+        }while (true);
+        x0 = y;
+        setK(k);
+        setResult(x0);
+        setEpsilon(epsilon);
     }
 
     public double phi(double x){
-        return 5*Math.sin(x)/((5 - Math.sqrt(21)) / 2) + (1-((5 - Math.sqrt(21)) / 2))*x;
+        return (x+5*Math.sin(5 * x)) / 6;
     }
     @Override
     public String toString() {
