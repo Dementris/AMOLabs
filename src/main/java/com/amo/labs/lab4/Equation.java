@@ -2,12 +2,14 @@ package com.amo.labs.lab4;
 
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 @Service
 public class Equation {
     private double result;
     private double epsilon;
-    private int firsta = 0;
-    private int secondb = 10;
+    private double firsta = -5;
+    private double secondb = -4;
 
     private double k;
 
@@ -28,19 +30,19 @@ public class Equation {
     }
 
 
-    public int getFirsta() {
+    public double getFirsta() {
         return firsta;
     }
 
-    public void setFirsta(int firsta) {
+    public void setFirsta(double firsta) {
         this.firsta = firsta;
     }
 
-    public int getSecondb() {
+    public double getSecondb() {
         return secondb;
     }
 
-    public void setSecondb(int secondb) {
+    public void setSecondb(double secondb) {
         this.secondb = secondb;
     }
 
@@ -56,30 +58,36 @@ public class Equation {
         return 5 * Math.sin(5 * x) - x;
     }
 
-    public double derivationMyFunction(double x){
-        return 25 * Math.cos(5*x)-1;
+    public double derivationMyFunction(double x) {
+        return (0.2) * Math.asin(x / 5.0);
     }
 
-    public boolean isCorrectAandB(){
+    public boolean isCorrectAandB() {
         return secondb - firsta > 0;
     }
 
-    public void iterationMethod(double x0,double epsilon){
-        if (equateMyFunction(firsta)*equateMyFunction(secondb)<0){
+    public void iterationMethod(double epsilon, double firsta, double secondb) {
+        setFirsta(firsta);
+        setSecondb(secondb);
+        double x0 = secondb + (firsta - secondb) / 2;
+        System.out.println(x0);
+        if (equateMyFunction(firsta) * equateMyFunction(secondb) < 0) {
             int k = 0;
             double x = x0;
-            double y = x - (equateMyFunction(x)/derivationMyFunction(x));
-            while (Math.abs(y-x)>=epsilon){
-                x = y;
-                y = x - (equateMyFunction(x)/derivationMyFunction(x));
+            while (Math.abs(x-derivationMyFunction(x)) > epsilon){
+                x = derivationMyFunction(x);
                 k++;
             }
-            x0 = y;
-            setResult(x0);
+            setResult(x);
             setK(k);
-            }
-        }
+            setEpsilon(epsilon);
 
+        } else System.out.println("Enter another range");
+    }
+
+    public double phi(double x){
+        return 5*Math.sin(x)/((5 - Math.sqrt(21)) / 2) + (1-((5 - Math.sqrt(21)) / 2))*x;
+    }
     @Override
     public String toString() {
         return "Equation{" +

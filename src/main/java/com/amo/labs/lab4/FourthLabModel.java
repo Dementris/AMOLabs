@@ -11,8 +11,20 @@ public class FourthLabModel {
         this.equation = equation;
     }
 
-    public void startlab(){
-        equation.iterationMethod(2.6,6);
+    public double convert(String str)
+    {
+        double val = 0;
+        try {
+            val = Double.parseDouble(str);
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Invalid String");
+        }
+        return val;
+    }
+
+    public void startlab(double epsilon, double a, double b){
+        equation.iterationMethod(epsilon,a,b);
         System.out.println(equation.toString());
     }
 }
